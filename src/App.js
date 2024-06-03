@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
 import FirstPage from "./FirstPage";
+import Trending from "./Trending";
 
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       >
         <Routes>
           <Route path="/" element={<FirstPage />} />
+          <Route path="/trending" element={<Trending />} />
         </Routes>
       </Box>
     </Router>

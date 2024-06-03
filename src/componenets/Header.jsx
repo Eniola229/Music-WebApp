@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,9 +13,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
-const pages = ['Trending', 'Leatest', 'Artist', 'Playlist'];
-const settings = ['Profile', 'Account', 'Premuim', 'Logout'];
+import { auth } from '../Auth/Firebase';
+import { GoogleAuthProvider, signInWithPopup, sendEmailVerification, onAuthStateChanged, signOut} from 'firebase/auth';
+
 
 const CustomTextField = styled((props) => (
   <TextField {...props} variant="outlined" />
@@ -46,6 +51,11 @@ const CustomTextField = styled((props) => (
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(true); 
+
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -61,8 +71,61 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+    useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (result) => {
+      setIsLoading(false); 
+
+      if (result) {
+        const { displayName, email } = result;
+        setUserData({ displayName, email });
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+    const SignUpUsingGoogle = () => {
+    setIsLoading(true); 
+
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const { displayName, email, photoURL } = result.user;
+        setUserData({ displayName, email, photoURL  });
+        sendEmailVerification(result.user);
+        setIsLoggedIn(true);
+        setIsLoading(false); 
+      })
+      .catch((error) => {
+        console.log({ error });
+        setIsLoading(false); 
+      });
+  };
+
+    const handleLogout = () => {
+    setIsLoading(true); 
+
+    signOut(auth)
+      .then(() => {
+        setUserData({});
+        setIsLoggedIn(false);
+        setIsLoading(false); 
+      })
+      .catch((error) => {
+        console.log({ error });
+        setIsLoading(false); 
+      });
+  };
+
+
+
   return (
-    <AppBar position="fixed" sx={{backgroundColor: 'black'}}>
+
+    <AppBar position="fixed" sx={{ backgroundColor: 'black' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -112,11 +175,26 @@ function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+               <ListItemButton to="/trending" style={{ textDecoration: 'none', color: 'white', fontSize: '30px', display: 'inline-block'}}>
+                      <Typography>
+                        Trending
+                      </Typography>
+              </ListItemButton>
+              <ListItemButton to="/leatest" style={{ textDecoration: 'none', color: 'white', fontSize: '30px', display: 'inline-block'}}>
+                      <Typography>
+                        Leatest
+                      </Typography>
+              </ListItemButton>
+              <ListItemButton to="/artist" style={{ textDecoration: 'none', color: 'white', fontSize: '30px', display: 'inline-block'}}>
+                      <Typography>
+                        Artist
+                      </Typography>
+              </ListItemButton>
+              <ListItemButton to="/playlists" style={{ textDecoration: 'none', color: 'white', fontSize: '30px', display: 'inline-block'}}>
+                      <Typography>
+                        PlayList
+                      </Typography>
+              </ListItemButton>
             </Menu>
           </Box>
           <Typography
@@ -137,54 +215,113 @@ function Header() {
           >
             APlay
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+           <Toolbar  sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <ListItemButton to="/trending" sx={{ textDecoration: 'none', color: 'white', fontSize: '30px' }}>
+                <Typography>Trending</Typography>
+              </ListItemButton>
+              <ListItemButton to="/leatest" sx={{ textDecoration: 'none', color: 'white', fontSize: '30px' }}>
+                <Typography>Leatest</Typography> 
+              </ListItemButton>
+              <ListItemButton to="/artist" sx={{ textDecoration: 'none', color: 'white', fontSize: '30px' }}>
+                <Typography>Artist</Typography>
+              </ListItemButton>
+              <ListItemButton to="/playlists" sx={{ textDecoration: 'none', color: 'white', fontSize: '30px' }}>
+                <Typography>PlayList</Typography>
+              </ListItemButton>
           </Box>
+      </Toolbar>
 
-          <Box sx={{ flexGrow: 0, display: 'flex', justifyContent:'space-around', gap: '10px' }}>
-          <Box>
-          <CustomTextField
+          <Box sx={{ flexGrow: 0, display: 'flex', justifyContent: 'space-around', gap: '10px' }}>
+            <Box>
+              <CustomTextField
                 id="outlined-basic"
                 label="Explore..."
                 fullWidth
               />
-          
-          </Box>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Avatar" src="https://lh3.googleusercontent.com/a/ACg8ocIXKlFNuPNbGSML2xkHqHhoz6kDlpTR65xXu1iLSCLBMGZ3fRnZ=s288-c-no" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            </Box>
+            <Box>
+              {isLoggedIn ? (
+                <>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar alt="Avatar" src="https://lh3.googleusercontent.com/a/ACg8ocIXKlFNuPNbGSML2xkHqHhoz6kDlpTR65xXu1iLSCLBMGZ3fRnZ=s288-c-no" />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                  <ListItem disablePadding>
+                    <ListItemButton to="/profile" style={{ textDecoration: 'none', color: 'black', fontSize: '30px', display: 'inline-block' }}>
+                      <Typography>
+                        Profile
+                      </Typography>
+                    </ListItemButton>
+                  </ListItem>
+
+                   <ListItem disablePadding>
+                    <ListItemButton to="/settings" style={{ textDecoration: 'none', color: 'black', fontSize: '30px', display: 'inline-block'}}>
+                      <Typography>
+                        Setting
+                      </Typography>
+                    </ListItemButton>
+                  </ListItem>
+
+                  <ListItem disablePadding>
+                    <ListItemButton to="/payments" style={{ textDecoration: 'none', color: 'black', fontSize: '30px', display: 'inline-block'}}>
+                      <Typography>
+                        Payments
+                      </Typography>
+                    </ListItemButton>
+                  </ListItem>
+
+                     <MenuItem onClick={handleCloseUserMenu}>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            background: 'white',
+                            color: 'black',
+                            display: { xs: 'block', md: 'inline-block' },
+                            marginRight: '1rem',
+                            boxShadow: 'none',
+                            width: '100%'
+                          }}
+                          onClick={handleLogout}
+                          disabled={isLoading}
+                        >
+                          {isLoggedIn ? 'Logout' : 'Logging out...'}
+                        </Button>
+                    </MenuItem>
+                  </Menu>
+
+                </>
+              ) : (
+                <Button
+                  variant="contained"
+                  sx={{
+                    background: 'white',
+                    color: 'black',
+                    display: { xs: 'block', md: 'inline-block' },
+                  }}
+                  onClick={SignUpUsingGoogle}
+                >
+                  Login/Signup
+                </Button>
+              )}
+            </Box>
           </Box>
         </Toolbar>
       </Container>
