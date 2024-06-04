@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 
 import FirstPage from "./FirstPage";
 import Trending from "./Trending";
+import Tracks from "./Tracks";
+import Profile from "./Profile";
 
 
 export default function App() {
@@ -17,6 +19,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<FirstPage />} />
           <Route path="/trending" element={<Trending />} />
+          <Route path="/tracks" element={<Tracks />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Box>
     </Router>

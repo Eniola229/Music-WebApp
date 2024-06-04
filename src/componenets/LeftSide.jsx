@@ -43,7 +43,7 @@ export default function LeftSide() {
     </Typography>
 
       <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton to="/">
           <ListItemIcon>
             <HomeOutlinedIcon sx={{color: 'white'}} />
           </ListItemIcon>
@@ -52,7 +52,7 @@ export default function LeftSide() {
       </ListItem>
 
       <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton to="/tracks">
           <ListItemIcon>
             <MusicNoteIcon sx={{color: 'white'}} />
           </ListItemIcon>

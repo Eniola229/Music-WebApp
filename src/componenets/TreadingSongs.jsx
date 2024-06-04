@@ -1,12 +1,25 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import musicads from '../assests/imgs/musicads.jpg';
+import trending from '../assests/imgs/trending.jpg';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import IconButton from '@mui/material/IconButton';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import { useTheme } from '@mui/material/styles';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import Divider from '@mui/material/Divider';
 
+import  ShortVid from "./ShortVid";
+
 export default function TreadingSongs() {
+  const theme = useTheme();
   return (
   <Box
       sx={{
@@ -25,7 +38,7 @@ export default function TreadingSongs() {
     >
       <Box
       sx={{
-      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url(${musicads})`,
+      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url(${trending})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         margin: 'auto',
@@ -75,316 +88,240 @@ export default function TreadingSongs() {
           </Button>
      </Box>
     </Box>
-    <Typography
-        variant="h6"
-      sx={{
-        marginTop: '3%',
-        color: 'white',
 
-      }}
+    <ShortVid/>
+
+    <List
+      sx={{ width: '100%', maxWidth: "100%", bgcolor: 'black', color: 'white' }}
+      aria-label="contacts"
     >
-        Recently Played
+    <Typography variant="h6">
+      Trending Songs
     </Typography>
-     <Stack
-        direction="row"
-        divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
-        sx={{marginTop:'3%'}}
-      >
-    <Box
-      sx={{
-      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/OIP.3i_VVznb8gNThYPNQI0AqQHaHa?rs=1&pid=ImgDetMain')`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        margin: 'auto',
-        height: '20vh',
-        backgroundColor: 'red',
-        width: '20%',
-        borderRadius: '20px',
-        position: 'relative',
-      }}
-      my={4}
-      margin="auto"
-      alignItems="center"
-      justifyContent="center" 
-      gap={4}
-      p={2}
-    >
-       <Box 
-        sx={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              margin: '20px',
-              textAlign: 'right',
-        }}
-       >
-          <Typography 
-          variant="h6"
-          sx={{
-            fontSize: 15,
-            color: 'white',
-            fontWeight: 'bold'
-          }}
-          >
-            Dunsin Oyekan
-          </Typography> 
-          <Typography 
-            sx={{color: 'white'}}
-          >
-             Kedosh
+
+      <ListItem disablePadding>
+        <ListItemButton sx={{gap: 2}}>
+          <ListItemIcon>
+             <Box
+              sx={{
+              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/OIP.UdUuj4J1lif1HJ3vChNN8QHaHb?rs=1&pid=ImgDetMain')`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                margin: 'auto',
+                height: '10vh',
+                backgroundColor: 'red',
+                width: 70,
+                borderRadius: '20px',
+                position: 'relative',
+              }}
+              my={4}
+              margin="auto"
+              alignItems="center"
+              justifyContent="center" 
+              gap={4}
+              p={2}
+            >
+            </Box>
+          </ListItemIcon >
+          <Box sx={{width: 100,}}>
+          <Typography variant="h5" sx={{fontSize:22}}>
+          P Daniel
           </Typography>
-       </Box>
-      </Box>
-
-    <Box
-      sx={{
-      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/OIP.-QI7FWd2mEpBtXxZ22TWqgHaFD?rs=1&pid=ImgDetMain')`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        margin: 'auto',
-        height: '20vh',
-        backgroundColor: 'red',
-        width: '20%',
-        borderRadius: '20px',
-        position: 'relative',
-      }}
-      my={4}
-      margin="auto"
-      alignItems="center"
-      justifyContent="center" 
-      gap={4}
-      p={2}
-    >
-       <Box 
-        sx={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              margin: '20px',
-              textAlign: 'right',
-        }}
-       >
-          <Typography 
-          variant="h6"
-          sx={{
-            fontSize: 15,
-            color: 'white',
-            fontWeight: 'bold'
-          }}
-          >
-            Chioma Jesus
-          </Typography> 
-          <Typography 
-            sx={{color: 'white'}}
-          >
-             Jesus Is Lord
+          <Typography variant="h6" sx={{fontSize:13}}>
+          EBI N PAMI
           </Typography>
-       </Box>
-      </Box>
+          </Box>
+          <Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+          <IconButton sx={{color: 'white'}} aria-label="previous">
+            {theme.direction === 'rtl' ? <SkipNextIcon sx={{color: 'white'}} /> : <SkipPreviousIcon sx={{color: 'white'}} />}
+          </IconButton>
+          <IconButton aria-label="play/pause">
+            <PlayArrowIcon  sx={{ height: 38, width: 38, color: "white" }} />
+          </IconButton>
+          <IconButton sx={{color: 'white'}} aria-label="next">
+            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+          </IconButton>
+        </Box>
+         <Typography sx={{color:"white", marginLeft:'15%'}}>
+            4:34
+        </Typography>
+        </Box>
+        </ListItemButton>
+        <MenuOpenIcon />
+      </ListItem>
+      <Divider sx={{border: '1px solid white'}}/>
 
-      <Box
-      sx={{
-      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/OIP.u59e5EX_2rE7mHtC-09IyAHaJQ?rs=1&pid=ImgDetMain')`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        margin: 'auto',
-        height: '20vh',
-        backgroundColor: 'red',
-        width: '20%',
-        borderRadius: '20px',
-        position: 'relative',
-      }}
-      my={4}
-      margin="auto"
-      alignItems="center"
-      justifyContent="center" 
-      gap={4}
-      p={2}
-    >
-       <Box 
-        sx={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              margin: '20px',
-              textAlign: 'right',
-        }}
-       >
-          <Typography 
-          variant="h6"
-          sx={{
-            fontSize: 15,
-            color: 'white',
-            fontWeight: 'bold'
-          }}
-          >
-            Theophilus Sunday
-          </Typography> 
-          <Typography 
-            sx={{color: 'white'}}
-          >
-             Aba Father
+      <ListItem disablePadding>
+        <ListItemButton sx={{gap: 2}}>
+          <ListItemIcon>
+             <Box
+              sx={{
+              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/OIP.YUg54zydxfIsZPGCc2xQjAHaIL?rs=1&pid=ImgDetMain')`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                margin: 'auto',
+                height: '10vh',
+                backgroundColor: 'red',
+                width: 70,
+                borderRadius: '20px',
+                position: 'relative',
+              }}
+              my={4}
+              margin="auto"
+              alignItems="center"
+              justifyContent="center" 
+              gap={4}
+              p={2}
+            >
+            </Box>
+          </ListItemIcon >
+          <Box sx={{width: 100,}}>
+          <Typography variant="h5" sx={{fontSize:22}}>
+          Bj Sax
           </Typography>
-       </Box>
-      </Box>
-      </Stack>
+          <Typography variant="h6" sx={{fontSize:13}}>
+           Jesus Iye
+          </Typography>
+          </Box>
+          <Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+          <IconButton sx={{color: 'white'}} aria-label="previous">
+            {theme.direction === 'rtl' ? <SkipNextIcon sx={{color: 'white'}} /> : <SkipPreviousIcon sx={{color: 'white'}} />}
+          </IconButton>
+          <IconButton aria-label="play/pause">
+            <PlayArrowIcon  sx={{ height: 38, width: 38, color: "white" }} />
+          </IconButton>
+          <IconButton sx={{color: 'white'}} aria-label="next">
+            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+          </IconButton>
+        </Box>
+         <Typography sx={{color:"white", marginLeft:'15%'}}>
+            5:00
+        </Typography>
+        </Box>
+        </ListItemButton>
+        <MenuOpenIcon />
+      </ListItem>
+      <Divider sx={{border: '1px solid white'}}/>
 
-          <Typography
-        variant="h6"
-      sx={{
-        marginTop: '3%',
-        color: 'white',
+    </List>
 
-      }}
+    <List
+      sx={{ width: '100%', maxWidth: "100%", bgcolor: 'black', color: 'white' }}
+      aria-label="contacts"
     >
-       Sermons
+    <Typography variant="h6">
+     Top Podcasts
     </Typography>
-     <Stack
-        direction="row"
-        divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
-        sx={{marginTop:'3%'}}
-      >
-    <Box
-      sx={{
-      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/R.98f1693bfe36b14c9f121daae6704530?rik=%2fbyccIAC0NeeIA&pid=ImgRaw&r=0')`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        margin: 'auto',
-        height: '20vh',
-        backgroundColor: 'red',
-        width: '20%',
-        borderRadius: '20px',
-        position: 'relative',
-      }}
-      my={4}
-      margin="auto"
-      alignItems="center"
-      justifyContent="center" 
-      gap={4}
-      p={2}
-    >
-       <Box 
-        sx={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              margin: '20px',
-              textAlign: 'right',
-        }}
-       >
-          <Typography 
-          variant="h6"
-          sx={{
-            fontSize: 15,
-            color: 'white',
-            fontWeight: 'bold'
-          }}
-          >
-            Pastor E.A Adeboye
-          </Typography> 
-          <Typography 
-            sx={{color: 'white'}}
-          >
-             Play
-          </Typography>
-       </Box>
-      </Box>
 
-    <Box
-      sx={{
-      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/R.7c2a46631c84e0630c5bdcbf4e9ddbe2?rik=95u%2fdpUAV0sH8g&pid=ImgRaw&r=0')`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        margin: 'auto',
-        height: '20vh',
-        backgroundColor: 'red',
-        width: '20%',
-        borderRadius: '20px',
-        position: 'relative',
-      }}
-      my={4}
-      margin="auto"
-      alignItems="center"
-      justifyContent="center" 
-      gap={4}
-      p={2}
-    >
-       <Box 
-        sx={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              margin: '20px',
-              textAlign: 'right',
-        }}
-       >
-          <Typography 
-          variant="h6"
-          sx={{
-            fontSize: 15,
-            color: 'white',
-            fontWeight: 'bold'
-          }}
-          >
-            Bishop David Oyedepo
-          </Typography> 
-          <Typography 
-            sx={{color: 'white'}}
-          >
-             Play
+          <ListItem disablePadding>
+        <ListItemButton sx={{gap: 2}}>
+          <ListItemIcon>
+             <Box
+              sx={{
+              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/R.98f1693bfe36b14c9f121daae6704530?rik=%2fbyccIAC0NeeIA&pid=ImgRaw&r=0')`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                margin: 'auto',
+                height: '10vh',
+                backgroundColor: 'red',
+                width: 70,
+                borderRadius: '20px',
+                position: 'relative',
+              }}
+              my={4}
+              margin="auto"
+              alignItems="center"
+              justifyContent="center" 
+              gap={4}
+              p={2}
+            >
+            </Box>
+          </ListItemIcon >
+          <Box sx={{width: 100,}}>
+          <Typography variant="h5" sx={{fontSize:22}}>
+           Pastor E.A Adeboye
           </Typography>
-       </Box>
-      </Box>
-
-      <Box
-      sx={{
-      backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/OIP.d1PU_TCiu3-SrsBOGGkEswAAAA?rs=1&pid=ImgDetMain')`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        margin: 'auto',
-        height: '20vh',
-        backgroundColor: 'red',
-        width: '20%',
-        borderRadius: '20px',
-        position: 'relative',
-      }}
-      my={4}
-      margin="auto"
-      alignItems="center"
-      justifyContent="center" 
-      gap={4}
-      p={2}
-    >
-       <Box 
-        sx={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              margin: '20px',
-              textAlign: 'right',
-        }}
-       >
-          <Typography 
-          variant="h6"
-          sx={{
-            fontSize: 15,
-            color: 'white',
-            fontWeight: 'bold'
-          }}
-          >
-            Femi Lazarus
-          </Typography> 
-          <Typography 
-            sx={{color: 'white'}}
-          >
-             Play
+          <Typography variant="h6" sx={{fontSize:13}}>
+           Beloved of The Lord
           </Typography>
-       </Box>
-      </Box>
-      </Stack>
+          </Box>
+          <Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+          <IconButton sx={{color: 'white'}} aria-label="previous">
+            {theme.direction === 'rtl' ? <SkipNextIcon sx={{color: 'white'}} /> : <SkipPreviousIcon sx={{color: 'white'}} />}
+          </IconButton>
+          <IconButton aria-label="play/pause">
+            <PlayArrowIcon  sx={{ height: 38, width: 38, color: "white" }} />
+          </IconButton>
+          <IconButton sx={{color: 'white'}} aria-label="next">
+            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+          </IconButton>
+        </Box>
+         <Typography sx={{color:"white", marginLeft:'15%'}}>
+            1:36:00
+        </Typography>
+        </Box>
+        </ListItemButton>
+        <MenuOpenIcon />
+      </ListItem>
+      <Divider sx={{border: '1px solid white'}}/>
 
+      <ListItem disablePadding>
+        <ListItemButton sx={{gap: 2}}>
+          <ListItemIcon>
+             <Box
+              sx={{
+              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url('https://th.bing.com/th/id/R.7c2a46631c84e0630c5bdcbf4e9ddbe2?rik=95u%2fdpUAV0sH8g&pid=ImgRaw&r=0')`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                margin: 'auto',
+                height: '10vh',
+                backgroundColor: 'red',
+                width: 70,
+                borderRadius: '20px',
+                position: 'relative',
+              }}
+              my={4}
+              margin="auto"
+              alignItems="center"
+              justifyContent="center" 
+              gap={4}
+              p={2}
+            >
+            </Box>
+          </ListItemIcon >
+          <Box sx={{width: 100,}}>
+          <Typography variant="h5" sx={{fontSize:22}}>
+             Bishop David Oyedepo
+          </Typography>
+          <Typography variant="h6" sx={{fontSize:13}}>
+           Finicial Freedom
+          </Typography>
+          </Box>
+          <Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+          <IconButton sx={{color: 'white'}} aria-label="previous">
+            {theme.direction === 'rtl' ? <SkipNextIcon sx={{color: 'white'}} /> : <SkipPreviousIcon sx={{color: 'white'}} />}
+          </IconButton>
+          <IconButton aria-label="play/pause">
+            <PlayArrowIcon  sx={{ height: 38, width: 38, color: "white" }} />
+          </IconButton>
+          <IconButton sx={{color: 'white'}} aria-label="next">
+            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+          </IconButton>
+        </Box>
+         <Typography sx={{color:"white", marginLeft:'15%'}}>
+            1:20:00
+        </Typography>
+        </Box>
+        </ListItemButton>
+        <MenuOpenIcon />
+      </ListItem>
+      <Divider sx={{border: '1px solid white'}}/>
+    </List>
+   
   </Box>
 
 

@@ -15,8 +15,6 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 
 import { auth } from '../Auth/Firebase';
 import { GoogleAuthProvider, signInWithPopup, sendEmailVerification, onAuthStateChanged, signOut} from 'firebase/auth';
@@ -77,8 +75,8 @@ function Header() {
       setIsLoading(false); 
 
       if (result) {
-        const { displayName, email } = result;
-        setUserData({ displayName, email });
+        const { displayName, email, photoURL } = result;
+        setUserData({ displayName, email, photoURL });
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -244,8 +242,11 @@ function Header() {
               {isLoggedIn ? (
                 <>
                   <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar alt="Avatar" src="https://lh3.googleusercontent.com/a/ACg8ocIXKlFNuPNbGSML2xkHqHhoz6kDlpTR65xXu1iLSCLBMGZ3fRnZ=s288-c-no" />
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, display: 'flex', }}>
+                    <Typography sx={{color:"white", marginLeft:'15%'}}>
+                      {userData.displayName}
+                  </Typography>
+                      <Avatar alt={userData.displayName} src={userData.photoURL} />
                     </IconButton>
                   </Tooltip>
                   <Menu
